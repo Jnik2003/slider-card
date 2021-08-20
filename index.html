@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,4 +130,137 @@
 	</script>
 	
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Слайдер колода карт</title>
+	<style>
+		.wrap{
+			width: 1270px;
+			height: auto;
+			margin: 0 auto;
+
+		}
+		.slider{
+			width: 640px;
+			height: 480px;
+			margin: 0 auto;
+			position: relative;			
+			overflow: hidden;
+			
+		}
+		
+		.next, .prev{			
+			width: 80px;
+			height: 40px;
+
+		}
+		.btns{
+			margin: 0 auto;
+			width: 160px;
+			display: flex;
+		}
+
+		img{
+			position: absolute;
+			top: 0;
+			left: 0;
+			transition: 3s;
+
+		}
+	</style>
+</head>
+<body>
+
+
+	<div class="wrap">
+		<div class="slider">
+			<img src="img/1.jpg" alt="" data-img = '0' style = "z-index: 0">
+			<img src="img/2.jpg" alt="" data-img = '1' style = "z-index: 1">
+			<img src="img/3.jpg" alt="" data-img = '2' style = "z-index: 2">
+			<img src="img/4.jpg" alt="" data-img = '3' style = "z-index: 3">
+			<img src="img/5.jpg" alt="" data-img = '4' style = "z-index: 4">
+		
+		</div>
+		<div class="btns">
+			
+			<!-- <button class="prev">Prev</button>
+			<button class="next">Next</button> -->
+		</div>
+		
+	</div>
+	<script>
+		
+		//1 вычислим ширину картинки, это и будет на сколько сдвигать
+		window.addEventListener('load', () => {
+			imgwidth = document.querySelector('img').offsetWidth;
+			console.log(imgwidth)
+
+		// 2 назначим z-index
+
+
+			let next = document.querySelector('.next');
+			//next.addEventListener('click', fNext);
+			let imgs = document.querySelectorAll('img');
+			console.log(imgs)
+
+			let count = 4;
+
+
+			
+			function fNext(){
+				// выберем самый верхний рисунок count = 4 и у которого data-img= 4
+				let img = document.querySelector('img[data-img="' + count + '"]');
+				if(count == 0){
+					count = imgs.length;					
+				}
+				//console.log(count)
+				// сдвинем его влево
+				img.style.left = - imgwidth*2 + "px";
+
+				// далее - выберем все img у которых data-img не равен 4 т.е. все остальные
+				// для этого нужно коллекцию в массив и, затем, применив filter отобрать img которые не равны текущему count т.е. 4 и запушить в новый массив imgsarrz
+				
+				let arrFromColl = [...imgs];
+					 
+				let imgsarrz = [];
+
+				let newarr = arrFromColl.filter((item) => {
+					
+					if(item.dataset.img != count){						
+						imgsarrz.push(item);
+					}
+				});
+				
+				// переберем этот массив и его элементам увеличим z-index на 1
+				for(i = 0; i < imgsarrz.length; i++){										
+					imgsarrz[i].style.zIndex++;													
+				}
+
+				// теперь уменьшим count, чтобы перейти к следующему изображению
+				
+				count--;
+
+				// через некоторое время вернем сдвинутую карттинку на место и присвоим zindex 0 положив ее под все остальные
+				setTimeout(fReturn, 3000);				
+				function fReturn(){					
+					img.style.left = 0 + "px";
+					img.style.zIndex = '0';
+					
+					
+				}
+				
+			}
+			setInterval(fNext, 2500)
+		})
+
+
+	
+	</script>
+	
+</body>
+>>>>>>> Stashed changes
 </html>
